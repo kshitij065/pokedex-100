@@ -2,19 +2,44 @@ header {
   background-color: #f44336;
   color: white;
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
   height: 100px;
 }
 
-form {
-  margin-bottom: 20px;
+#refresh-button {
+  margin-right: 20px;
+  padding: 10px 20px;
+  background-color: white;
+  color: #f44336;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
 }
 
 main {
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+.search-container {
+  margin: 20px 0;
+}
+
+#search-input {
+  margin-left: 10px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+#pokemon-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
 li {
@@ -41,4 +66,22 @@ h2 {
 
 p {
   margin: 5px 0;
+}
+
+#pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 20px 0;
+}
+
+.page-link {
+  margin: 0 10px;
+  padding: 10px;
+  background-color: white;
+  color: #f44336;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
 }
