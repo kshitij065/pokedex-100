@@ -1,8 +1,17 @@
+const form = document.getElementById('form');
 const pokemonListElement = document.getElementById('pokemon-list');
 
-async function getPokemonData() {
-  for (let i = 1; i <= 100; i++) {
-    const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${i}`);
+form.addEventListener('submit', event => {
+  event.preventDefault();
+  const number = form.number.value;
+  getPokemonData(number);
+});
+
+async function getPokemonData(number) {
+  pokemonListElement.innerHTML = '';
+  for (let i = 1; i <= number; i++) {
+    const id = Math.floor(Math.random() * 898) + 1;
+    const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${id}`);
     const pokemonData = await response.json();
 
     const pokemon = {
@@ -34,5 +43,3 @@ function renderPokemon(pokemon) {
   `;
   pokemonListElement.appendChild(pokemonElement);
 }
-
-getPokemonData();
