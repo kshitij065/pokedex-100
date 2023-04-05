@@ -1,40 +1,38 @@
-header {
-  background-color: #f44336;
-  color: white;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100px;
+const pokemonListElement = document.getElementById('pokemon-list');
+
+async function getPokemonData() {
+  for (let i = 1; i <= 100; i++) {
+    const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${i}`);
+    const pokemonData = await response.json();
+
+    const pokemon = {
+      name: pokemonData.name,
+      image: pokemonData.sprites.other['official-artwork'].front_default,
+      type: pokemonData.types.map(type => type.type.name),
+      description: ''
+    };
+
+    const speciesResponse = await fetch(pokemonData.species.url);
+    const speciesData = await speciesResponse.json();
+
+    const descriptionObject = speciesData.flavor_text_entries.find(
+      entry => entry.language.name === 'en'
+    );
+    pokemon.description = descriptionObject.flavor_text;
+
+    renderPokemon(pokemon);
+  }
 }
 
-main {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
+function renderPokemon(pokemon) {
+  const pokemonElement = document.createElement('li');
+  pokemonElement.innerHTML = `
+    <img src="${pokemon.image}" alt="${pokemon.name}">
+    <h2>${pokemon.name}</h2>
+    <p>Type: ${pokemon.type.join(', ')}</p>
+    <p>${pokemon.description}</p>
+  `;
+  pokemonListElement.appendChild(pokemonElement);
 }
 
-li {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  margin: 10px;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  min-width: 200px;
-}
-
-img {
-  width: 150px;
-  height: 150px;
-}
-
-h2 {
-  margin: 10px 0 5px;
-  font-size: 24px;
-}
-
-p {
-  margin: 5px 0;
-}
+getPokemonData();
